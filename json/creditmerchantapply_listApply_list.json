@@ -1,0 +1,25 @@
+{
+    "data": [{
+        "createTime": 1474967880000,
+        "id": 7,
+        "loginName": "13275910426",
+        "mName": "ppp",
+        "operationTime": 1474943221000,
+        "picIndex": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/13275910426/5_13275910426_20160810085035.jpg",
+        "reason": "未审核",
+        "status": 0
+    }, {
+        "createTime": 1474967880000,
+        "id": 6,
+        "loginName": "15980358608",
+        "mName": "乐园亲子",
+        "operationTime": 1474943221000,
+        "picIndex": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/13275910426/5_13275910426_20160810085035.jpg",
+        "reason": "资料有误",
+        "status": 2
+    }],
+    "is": 1,
+    "msg": "1",
+    "size": 0,
+    "time": 1475915747078
+}

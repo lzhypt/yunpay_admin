@@ -1,0 +1,32 @@
+{
+	"data": {
+		"mLicencenum": "05925153555",
+		"mName": "向阳坊",
+		"rejectReason":"ksjdfjsl",
+
+		
+        "address": "新疆维吾尔自治区巴音郭楞蒙古自治州库尔勒市",
+        "applyTime": 1474967050000,
+        "auditStatus": 2,
+        "auditTime": 0,
+        "businessScope": "零售化妆品",
+        "city": 652800,
+        "id": 29178,
+        "loginName": "13899021981",
+        "mOrgName": "库尔勒青年路镜花堂化妆品店",
+        "mType": "美容美发",
+        "mtypeId": 30,
+        "picIdBack": "http://aten35.ticp.net:9090/yunpay_static7_13899021981_20160927170701083.jpg",
+        "picIdFront": "http://aten35.ticp.net:9090/yunpay_staticnull",
+        "picIdHold": "http://aten35.ticp.net:9090/yunpay_staticnull",
+        "picIndex": "touxiang.jpg",
+        "picMerLicence": "http://aten35.ticp.net:9090/yunpay_static8_13899021981_20160927172813819.jpg",
+        "picMerOther": "http://aten35.ticp.net:9090/yunpay_staticnull",
+        "province": 650000,
+        "region": 652801
+    },
+	"is": 1,
+	"msg": "添加成功",
+	"size": 0,
+	"time": 1474710306558
+}

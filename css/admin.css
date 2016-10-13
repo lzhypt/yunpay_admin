@@ -1,0 +1,300 @@
+
+html,body{  
+    height: 100%;  
+    min-width: 1100px
+}  
+html,body,*{
+	margin:0;
+	padding:0;
+	font-size:62.5%;
+
+}
+body{
+	width: 100%;
+	height:100%;
+	display:block;
+	min-width:1300px;
+}
+a{
+  text-decoration: none;
+}
+#nav{
+	width:100%;
+	display:block;
+	position:fixed;
+	top: 0;
+	z-index: 2;
+	background-color: #00A2CA;
+}
+.nav-wrapper{
+	/*background:url("../images/nav_bg.png") 0 0 repeat-x;*/
+	width:100%;
+	display:block;
+	box-shadow: 0px 4px 3px #76A8AD;
+	height: 70px;
+	overflow: hidden;
+}
+.logo{
+	display:inline-block;
+	height: 70px;
+	overflow: hidden;
+}
+.logout{
+    line-height: 70px;
+    float: right;
+
+}
+.logout > *{
+	margin-right:1.6rem;
+}
+.logout *{
+	color:#fff;
+	font-size:2rem;
+}
+.logout strong{
+	margin:0 0.5rem;
+	cursor: pointer;
+}
+.lougout{
+	line-height: 70px;
+    float: right;
+    margin-right: 2rem;
+}
+#wrapper{
+	width:100%;
+	display:block;
+	height: 100%;
+	/*background: url("../images/service_bg.gif") 0 0 repeat;*/
+	text-align: center;
+	background: #fff;
+}
+.left_tree{
+	width: 20rem;
+    border-right: 1px solid #DDD;
+    height: 100%;
+    box-shadow: 3px 5px 4px #EEE;
+    text-align: left;
+    padding-left: 1rem;
+    background-color:rgba(222, 222, 222, 0.36);
+    float:left;
+
+}
+.left_tree *{
+	font-size:2rem !important;
+	color:#000;
+	line-height: 2rem;
+}
+.left_tree #tree_tree_2 > span a{
+	font-size:1.6rem !important;
+}
+
+.right_con{
+	height: 100%;
+	text-align: left;
+	padding-left: 1rem;
+	float:left;
+}
+.left_tree > div, .right_con > div{
+	margin-top:80px;
+}
+
+
+/*遮罩层*/
+.mask_layer{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: #EEE;
+	top: 0;
+	left: 0;
+	filter:alpha(opacity=50);  
+	-moz-opacity:0.5;  
+	-khtml-opacity: 0.5;  
+	opacity: 0.5;  
+	display: none;
+}
+
+
+/*弹出框*/
+.dialog{
+    position: fixed;
+    width: 50%;
+    min-width: 35rem;
+    left: 30%;
+    top: 25%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    z-index: 3;
+    box-shadow: 0px 0px 10px #868686;
+    background: #fff;
+    display: none;
+}
+.dialog-wrapper{
+	margin: 2rem;
+	margin-top:3rem;
+}
+.dialog_con{
+	width:100%;
+	height:100%;
+	text-align: center;
+	
+}
+.dialog_con > div{
+	margin:1rem auto;
+}
+.dialog .detail_info{
+	text-align: left;
+	margin:2rem 0;
+	clear:both;
+}
+.dialog .detail_info > div{
+	min-width: 50%;
+	margin:0;
+	padding:0;
+	display:inline-block;
+	float:left;
+	margin: 0.5rem 0;
+	overflow: hidden;
+}
+.dialog .detail_info > div > img{
+	float:left;
+	margin: 0.5rem;
+	max-width:20rem;
+	max-height:16rem;
+	width:30%;
+	display: none;
+}
+.dialog .detail_info span.address{
+	display: inline;
+}
+.dialog .detail_info > div.reject{
+	display: none;
+}
+.dialog label{
+	font-size: 1.8rem;
+	/*width:10rem;*/
+	/*line-height: 2rem;*/
+	margin-right:0.2rem;
+	display:inline-block;
+	color:#666;
+}
+.dialog input{
+	font-size: 1.8rem;
+	/*display:none;*/
+	width:10rem;
+	/*line-height: 2rem;*/
+	text-indent: 0.2rem;
+}
+.dialog .dialog_con .sub_div{
+	display: block;
+	clear: both;
+	text-align: center;
+    margin-top: 2rem;
+}
+.dialog .sub_div button{
+	width: 7rem;
+    background: #00A2CA;
+    border: 1px solid #00A2CA;
+    border-radius: 0.3rem;
+    /*line-height: 2rem;*/
+    font-size: 1.8rem;
+    color: #fff;
+    margin:0 2rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    /*box-shadow: 3px 3px 3px #00A2CA;*/
+}
+.dialog h3.dialog_title{
+	text-align: center;
+	display: block;
+	font-size: 2rem;
+	margin:0 auto;
+	font-weight: bold;
+	margin-bottom:1rem;
+}
+.dialog span{
+	font-size: 1.8rem;
+	/*line-height: 2rem;*/
+	margin-right:0.2rem;
+	display:inline-block;
+	color:#666;
+}
+.dialog textarea{
+	width: 18rem;
+	font-size: 1.8rem;
+	/*line-height: 2rem;*/
+}
+.dialog_info input, .dialog_info textarea{
+	font-size: 1.6rem;
+}
+.dialog_info .sub_div, .dialog_info input[name='amountMax'], .dialog_info input[name='amountAll'], .dialog_info input[name='commission']{
+	display:none;
+}
+.dialog_info input[name='amountMax'], .dialog_info input[name='amountAll'], .dialog_info input[name='commission']{
+	border:1px solid rgb(171,171,171);
+	margin-left:-0.6rem;
+}
+.dialog_info > div > span.font_eee{
+	color:#999;
+}
+input::-webkit-input-placeholder{
+　　color: #f0f0f0;
+}
+input:-moz-placeholder{
+　　color:#f0f0f0;
+}
+input::-moz-placeholder{
+　　color:#f0f0f0;
+}
+input:-ms-input-placeholder{
+　　color:#f0f0f0;
+}
+.dialog_con .amountMax, .dialog_con .amountAll .dialog_con .commission{
+	display: none;
+}
+.dialog_info .amountMax, .dialog_info .amountAll .dialog_info .commission{
+	display: inline-block;
+}
+.dialog_close{
+    position: absolute;
+    right: 2rem;
+    width: 2rem;
+    top: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    display: none;
+}
+.dialog .wait_load{
+	width: 90%;
+	height:100%;
+	background: #fff;
+	z-index:4;
+	text-align: center;
+	display:none;
+	position:absolute;
+	top:0;
+}
+.dialog .wait_load > img{
+	display: inline-block;
+    height: 100%;
+}
+
+/*树形控件*/
+A.MzTreeview
+{
+  font-size: 9pt;
+  padding-left: 3px;
+}
+
+/*网格字体*/
+tr.red td
+{
+    background:red;
+    color:Green;    
+}
+tr td.green
+{
+    background:'lightgreen';
+    color:Red;
+}

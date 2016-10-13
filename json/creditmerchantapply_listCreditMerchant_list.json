@@ -1,0 +1,37 @@
+{
+    "data": [{
+        "actualIncome": 225.31,
+        "amountAll": 1000000,
+        "amountMax": 1000,
+        "applyAmount": 2572,
+        "applyPerson": 4,
+        "auditTime": 1474943221000,
+        "commission": 0.015,
+        "createTime": 1474967880000,
+        "id": 2,
+        "loginName": "13114720218",
+        "mName": "翼科信息技术有限公司",
+        "picIndex": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/13275910426/5_13275910426_20160810085035.jpg",
+        "shouldIncome": 320,
+        "status": 1
+    }, {
+        "actualIncome": 424.57,
+        "amountAll": 1000000,
+        "amountMax": 1000,
+        "applyAmount": 7425,
+        "applyPerson": 9,
+        "auditTime": 1474943221000,
+        "commission": 0.015,
+        "createTime": 1474943221000,
+        "id": 1,
+        "loginName": "13599854203",
+        "mName": "三迪666",
+        "picIndex": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/13275910426/5_13275910426_20160810085035.jpg",
+        "shouldIncome": 431,
+        "status": 1
+    }],
+    "is": 1,
+    "msg": "获取成功",
+    "size": 0,
+    "time": 1475917711720
+}

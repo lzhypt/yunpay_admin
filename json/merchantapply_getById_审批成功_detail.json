@@ -1,0 +1,29 @@
+{
+	"data": {
+		"mLicencenum": "05925153555",
+		"mName": "向阳坊",
+        "address": "广西壮族自治区贵港市桂平市",
+        "applyTime": 1474967859000,
+        "auditStatus": 1,
+        "auditTime": 1475026272000,
+        "businessScope": "手机、维修",
+        "city": 450800,
+        "id": 29179,
+        "loginName": "18207850609",
+        "mOrgName": "巨成通讯店",
+        "mType": "电子",
+        "mtypeId": 25,
+        "picIdBack": "http://aten35.ticp.net:9090/yunpay_static7_18207850609_20160927172146023.jpg",
+        "picIdFront": "http://aten35.ticp.net:9090/yunpay_staticnull",
+        "picIdHold": "http://aten35.ticp.net:9090/yunpay_staticnull",
+        "picIndex": "touxiang.jpg",
+        "picMerLicence": "http://aten35.ticp.net:9090/yunpay_static8_18207850609_20160927172210913.jpg",
+        "picMerOther": "http://aten35.ticp.net:9090/yunpay_static12_18207850609_20160927172257788.jpg",
+        "province": 450000,
+        "region": 450881
+    },
+	"is": 1,
+	"msg": "添加成功",
+	"size": 0,
+	"time": 1474710306558
+}

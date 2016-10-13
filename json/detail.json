@@ -1,0 +1,29 @@
+{
+	"data": {
+		"applyTime": 0,
+		"address": "贵州省黔西南布依族苗族自治州晴隆县",
+		"auditStatus": 1,
+		"auditTime": 0,
+		"businessScope": "糕点",
+		"city": 522300,
+		"id": 6,
+		"loginName": "15980999030",
+		"mLicencenum": "05925153555",
+		"mName": "向阳坊",
+		"mOrgName": "向阳坊",
+		"mType": "户外",
+		"mtypeId": 29,
+		"picIdBack": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/15980999030/7.jpg",
+		"picIdFront": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/15980999030/6.jpg",
+		"picIdHold": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/15980999030/7.jpg",
+		"picIndex": "/commons/upload/15980999030/5.jpg",
+		"picMerLicence": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/15980999030/8.jpg",
+		"picMerOther": "http://aten35.ticp.net:9090/yunpay_static/commons/upload/15980999030/12.jpg",
+		"province": 520000,
+		"region": 522324
+	},
+	"is": 1,
+	"msg": "添加成功",
+	"size": 0,
+	"time": 1474710306558
+}

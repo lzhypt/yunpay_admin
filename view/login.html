@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>云支付-后台登录</title>
+	<style>
+		html,body{  
+		    height: 100%;  
+		    min-width: 1100px;
+		}  
+		html,body,*{
+			margin:0;
+			padding:0;
+			font-size:62.5%;
+
+		}
+		body{
+			width: 100%;
+			height:100%;
+			display:block;
+			background-color:#0F1D42;
+		}
+		#nav{
+			width:100%;
+			display:block;
+			z-index: 2;
+			position:fixed;
+			top: 0;
+			background-color: #00A2CA;
+		}
+		.nav-wrapper{
+			/*background:url("./../images/nav_bg.png") 0 0 repeat-x;*/
+			width:100%;
+			display:block;
+			box-shadow: 0px 4px 3px #76A8AD;
+			height: 70px;
+			/*overflow: hidden;*/
+		}
+		.logo{
+			display:inline-block;
+			height: 70px;
+			overflow: hidden;
+		}
+		#wrapper{
+
+			width:100%;
+			display:block;
+			height: 100%;
+			background: url("./../images/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg") 0 bottom no-repeat;
+			background-size: 100%;
+			text-align: center;
+		}
+		.login{
+			position:relative;
+			top:30%;
+			width:40rem;
+			margin:0 auto;
+			padding: 1rem 2rem;
+			border: 1px solid #618088;
+			background: rgba(0, 162, 202, 0.05);
+			border-radius:5px;
+			box-shadow: 3px 3px 3px rgba(255, 255, 255, 0);
+
+		}
+		.login form{
+			display: inline-block;
+			margin: 1rem auto;
+			font-size: 2rem;
+			text-align: left;
+		}
+		.login form label{
+			font-size: 2rem;
+			color:#fff;
+			
+			width:8rem;
+			line-height: 2rem;
+			margin-right:0.2rem;
+			display:inline-block;
+		}
+		.login form input{
+			font-size: 1.6rem;
+			width:18rem;
+			line-height: 2rem;
+		    background: rgba(0,0,0,0);
+    		border: 1px solid rgba(208, 208, 208, 0.38);
+    		color:#fff;
+		}
+		.login form input#checknum{
+			width:8rem;
+		}
+		.login form .checkimg{
+		    width: 8rem;
+    		vertical-align: top;
+    		cursor: pointer;
+    		float: right;
+    		margin-right: 0.8rem;
+		}
+		.login form > div{
+			margin:2rem auto;
+		}
+		.login form .sub_div{
+			display: block;
+			text-align: center;
+		    margin-top: 3rem;
+		}
+		.login form .sub_div input{
+			width: 7rem;
+		    background: #00A2CA;
+		    border: 1px solid #00A2CA;
+		    border-radius: 0.3rem;
+		    line-height: 2rem;
+		    color: #fff;
+		    padding: 0.5rem 1rem;
+		    cursor: pointer;
+		    /*box-shadow: 3px 3px 3px #00A2CA;*/
+		}
+		.login form h1.login_title{
+			text-align: center;
+			font-size: 2rem;
+
+			margin:0 auto 3rem;
+			color:#fff;
+			font-weight: bold;
+		}
+		.login form label.error{
+			font-size: 1.2rem;
+		    color: #DC4C3C;
+		    position: absolute;
+		    text-align: left;
+		    padding-left: 6.4rem;
+		    display: block;
+		    width: 16rem;
+		    margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<div class="nav-wrapper">
+			<a href="login.html" class="logo">
+				<img src="./../images/logo.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div id="wrapper">
+		<div class="login">
+			<div class="login_wrapper">
+				<form class="loginform" id="loginform">
+					<div>
+						<h1 class="login_title">云 支 付 后 台 登 录</h1>
+					</div>
+					<div>
+						<label for="loginName">用户名: </label>
+						<input type="text" id="loginName" name="loginName" maxlength="12" placeholder="请输入4-10位中英文组合">
+					</div>
+					<div>
+						<label for="password">密&nbsp;码: </label>
+						<input type="password" id="password" name="password" maxlength="12" placeholder="请输入6-16位字母数字组合">
+					</div>
+					<div style="display:none;">
+						<label for="checknum">验证码: </label>
+						<input type="text" id="checknum" name="checknum" >
+						<input type="image" id="checkimg" class="checkimg" src="./../images/logo.png">
+					</div>
+					<div class="sub_div">
+						<input type="submit" class="submit" value="登  录">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="./../javascript/jquery-min.js"></script>
+	<script type="text/javascript" src="./../javascript/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="./../javascript/messages_zh.js"></script>
+	<script type="text/javascript" src="./../javascript/md5.js"></script>
+	<script type="text/javascript" src="./../lhgdialog/lhgdialog.js"></script>
+	<script>
+		$().ready(function() {
+			// 提示框封装
+		    function dialog_tip(argObj, time){
+		    	var timer;
+		    	$.dialog($.extend({
+					lock: true,
+				    background: '#000', /* 背景色 */
+				    opacity: 0.5,       /* 透明度 */
+				    content: '提示内容',
+				    width: '200px',
+					height: 100,
+				    init: function () {
+				        var that = this, i = time || 3;
+				        var fn = function () {
+				            that.title(i + '秒后关闭');
+				            !i && that.close();
+				            i --;
+				        };
+				        timer = setInterval(fn, 1000);
+				        fn();
+				    },
+				    close: function () {
+				        clearInterval(timer);
+				    }
+				}, argObj || {}));
+		    }
+			$.validator.setDefaults({
+			    submitHandler: function() {
+			    	$.ajax({
+				        type: 'POST',
+				        url: '/yunpay_v2/api/admin/administrator/login',
+				        dataType: 'json',
+				        async: false,
+				        timeout: 8000, // 设置请求超时时间（毫秒）。此设置将覆盖全局设置
+				        data: {
+				        	loginName: $("#loginName").val(),
+				        	password: hex_md5($("#password").val()).toLocaleUpperCase()
+				        },
+				        success: function (data) {
+				        	if (data.is) {
+				        		localStorage.setItem('loginStatus','yes');
+                                if(localStorage.getItem('historyUrl')) {
+                                    location.href = localStorage.getItem('historyUrl')
+                                }else{
+                                    location.href = 'admin.html';// getRootPath() + '/rest/h5/index'
+                                }
+                            } else {
+                            	localStorage.setItem('loginStatus','no');
+                                dialog_tip({content:data.msg});
+                            }
+				        },
+				        error: function (xhr, textStatus, errorThrown) {
+				        	dialog_tip({content:"Connection error"});
+				        },
+			         	invalidHandler: function(form, validator) {  //不通过回调
+				       		return false;
+			          	}
+					})
+			    }
+			});			// 在键盘按下并释放及提交后验证提交表单
+		  	$("#loginform").validate({
+			    rules: {
+			      loginName: {
+			        required: true,
+			        minlength: 4,
+			        maxlength: 10
+			      },
+			      password: {
+			        required: true,
+			        minlength: 6,
+			        maxlength: 12
+			      },
+			      checknum: {
+			        required: true,
+			        minlength: 4,
+			        maxlength: 6
+			      },
+			      agree: "required"
+			    },
+			    messages: {
+			      loginName: {
+			        required : "* 请输入用户名",
+			        minlength: "* 不小于 4 个中英文字符",
+			        maxlength: "* 不大于 10 个中英文字符"
+			      },
+			      password: {
+			        required : "* 请输入密码",
+			        minlength: "* 密码不小于 6 个字母、数字组合",
+			        maxlength: "* 密码不大于 12 个字母、数字组合"
+			      },
+			      checknum: {
+			        required : "* 请输入验证码",
+			        minlength: "* 验证码不小于 4 个字符",
+			        maxlength: "* 验证码不大于 6 个字符"
+			      }
+			    }
+			});
+		});
+	</script>
+</body>
+</html>

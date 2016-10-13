@@ -1,0 +1,12 @@
+function fmoney(floatNum, fixLen) //floatNum:传入的float数字 ，fixLen:希望返回小数点几位 
+{
+	fixLen = fixLen > 0 && fixLen <= 20 ? fixLen : 2;
+	floatNum = parseFloat((floatNum + "").replace(/[^\d\.-]/g, "")).toFixed(fixLen) + "";
+	var l = floatNum.split(".")[0].split("").reverse(),
+		r = floatNum.split(".")[1];
+	t = "";
+	for (i = 0; i < l.length; i++) {
+		t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+	}
+	return t.split("").reverse().join("") + "." + r;
+}
