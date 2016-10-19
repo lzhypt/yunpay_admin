@@ -5,12 +5,12 @@
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
 	<title>云支付-后台管理</title>
 	<script>
-		// if(!localStorage.getItem('loginStatus') || localStorage.getItem('loginStatus') == 'no'){
-		// 	localStorage.setItem('historyUrl', window.location.href);
-		// 	window.location.href =  "login.html";
-		// }else{
-		// 	localStorage.setItem('historyUrl', '');
-		// }
+		if(!localStorage.getItem('loginStatus') || localStorage.getItem('loginStatus') == 'no'){
+			localStorage.setItem('historyUrl', window.location.href);
+			window.location.href =  "login.html";
+		}else{
+			localStorage.setItem('historyUrl', '');
+		}
 	</script>
 	<link rel="stylesheet" href="./../css/jquery-ui.css" />
 	<link rel="stylesheet" href="./../css/pqgrid.min.css" />
@@ -48,18 +48,12 @@
 					<h3 class="dialog_title">详情</h3>
 				</div>
 				<img src="./../images/X.png" alt="" class="dialog_close">
-				<div class="detail_info">
-					<!-- <div style="display:none;">
-						<label>商户 I D: </label><span class="id"></span>
-					</div> -->
+				<div class="detail_info merchant_certified">
 					<div>
 						<label>商户简称: </label><span class="mName"></span>
 					</div>
 					<div>
-						<label title="商户用户名">用 户 名: </label><span class="loginName"></span>
-					</div>
-					<div>
-						<label>已申请数: </label><span class="applyPerson" style="display:inline;"></span>
+						<label title="用户名">用 户 名: </label><span class="loginName"></span>
 					</div>
 					<div>
 						<label>公司名称: </label><span class="mOrgName" style="display:inline;"></span>
@@ -82,12 +76,6 @@
 					<div>
 						<label>审批时间: </label><span class="auditTime"></span>
 					</div>
-					<div>
-						<label>申请时间: </label><span class="createTime"></span>
-					</div>
-					<div>
-						<label>审核时间: </label><span class="operationTime"></span>
-					</div>
 
 					<div>
 						<label>省&nbsp;&nbsp;份: </label><span class="provinceName"></span>
@@ -101,15 +89,52 @@
 					<div>
 						<label>邮政编码: </label><span class="region"></span>
 					</div>
-					
+					<div style="clear:both;">
+						<label>商户地址: </label><span class="address"></span>
+					</div>
+					<div style="clear:both;">
+						<label>拒绝原因: </label><span class="rejectReason reason" style="display:inline;"></span>
+					</div>
 
+					<div style="width:100%;clear:both;" class="mImg">
+						<img src="" alt="封面图片" class="picIndex">
+						<img src="" alt="营业执照" class="picMerLicence">
+						<img src="" alt="其它证件" class="picMerOther">
+						<img src="" alt="法定代表身份证正面" class="picIdFront">
+						<img src="" alt="法定代表身份证反面" class="picIdBack">
+						<img src="" alt="法定代表手持身份证" class="picIdHold">
+					</div>
+					<span style="display:inline-block;clear:both;"></span>
+				</div>
+				<div class="detail_info merchant_cloud_treasure_apply">
+					<div>
+						<label>商户简称: </label><span class="mName"></span>
+					</div>
+					<div>
+						<label title="用户名">用 户 名: </label><span class="loginName"></span>
+					</div>
 					
+					<div>
+						<label>已申请数: </label><span class="applyPerson" style="display:inline;"></span>
+					</div>
+					<div style="clear:both;">
+						<label>审核状态: </label><span class="curStatus"></span>
+					</div>
+					<div>
+						<label>审批时间: </label><span class="auditTime"></span>
+					</div>
+					<div>
+						<label>申请时间: </label><span class="createTime"></span>
+					</div>
+					<div>
+						<label>审核时间: </label><span class="operationTime"></span>
+					</div>
 					<div>
 						<label for="amountAll">总 额 度: </label><span class="amountAll"></span>
 						<input type="text" id="amountAll" name="amountAll" placeholder="1,000,000">
 					</div>
 					<div>
-						<label for="amountMax" title="最高申请额度">最大额度: </label><span class="amountMax"></span>
+						<label for="amountMax" title="最高申请额度">申请额度: </label><span class="amountMax"></span>
 						<input type="text" id="amountMax" name="amountMax" placeholder="1,000">
 					</div>
 					<div>
@@ -125,9 +150,67 @@
 					<div>
 						<label>实际收款: </label><span class="actualIncome"></span>
 					</div>
-
 					<div style="clear:both;">
-						<label>商户地址: </label><span class="address"></span>
+						<label>拒绝原因: </label><span class="rejectReason reason" style="display:inline;"></span>
+					</div>
+
+					<div style="width:100%;clear:both;" class="mImg">
+						<img src="" alt="封面图片" class="picIndex">
+						<img src="" alt="营业执照" class="picMerLicence">
+						<img src="" alt="其它证件" class="picMerOther">
+						<img src="" alt="法定代表身份证正面" class="picIdFront">
+						<img src="" alt="法定代表身份证反面" class="picIdBack">
+						<img src="" alt="法定代表手持身份证" class="picIdHold">
+					</div>
+					<span style="display:inline-block;clear:both;"></span>
+				</div>
+				<div class="detail_info customer_cloud_treasure_apply">
+					<div>
+						<label title="用户名">用 户 名: </label><span class="loginName"></span>
+					</div>
+					<div>
+						<label title="用户昵称">用户昵称: </label><span class="nickname"></span>
+					</div>
+					<div style="clear:both;">
+						<label>审核状态: </label><span class="curStatus"></span>
+					</div>
+					<!-- <div>
+						<label>申请时间: </label><span class="applyTime"></span>
+					</div> -->
+					<div>
+						<label>审批时间: </label><span class="auditTime"></span>
+					</div>
+					<div>
+						<label>申请时间: </label><span class="createTime"></span>
+					</div>
+					<div>
+						<label for="amountApply">申请额度:</label>
+						<span class="amountApply"></span>
+						<input type="text" id="amountApply" name="amountApply">
+					</div>
+					<div>
+						<label title="商户登录名">商户用户: </label><span class="merLoginName"></span>
+					</div>
+					<div>
+						<label title="商户可申请额度">可申请额: </label><span class="merApplyMax"></span>
+					</div>
+					<div>
+						<label title="商户可申请额度">可申请额: </label><span class="merAmountApply"></span>
+					</div>
+					<div>
+						<label title="会员可申请额度">额度限制: </label><span class="applyMax"></span>
+					</div>
+					<div>
+						<label title="可使用额度">可用额度: </label><span class="amountMax"></span>
+					</div>
+					<div>
+						<label title="已使用额度">已用额度: </label><span class="amountUsed"></span>
+					</div>
+					<div>
+						<label title="额度释放状态">释放状态: </label><span class="isRelease"></span>
+					</div>
+					<div>
+						<label title="额度释放时间">释放时间: </label><span class="releaseTime"></span>
 					</div>
 					<div style="clear:both;">
 						<label>拒绝原因: </label><span class="rejectReason reason" style="display:inline;"></span>
@@ -139,6 +222,51 @@
 						<img src="" alt="法定代表身份证正面" class="picIdFront">
 						<img src="" alt="法定代表身份证反面" class="picIdBack">
 						<img src="" alt="法定代表手持身份证" class="picIdHold">
+					</div>
+					<span style="display:inline-block;clear:both;"></span>
+				</div>
+				<div class="detail_info public_apply">
+					<div>
+						<label>登录名: </label><span class="loginName"></span>
+					</div>
+					<div>
+						<label>描述: </label><span class="desc"></span>
+					</div>
+					<div style="clear:both;">
+						<label>审核状态: </label><span class="curStatus"></span>
+					</div>
+					<div>
+						<label>发布状态: </label><span class="pubStatus"></span>
+					</div>
+					<div>
+						<label>创建时间: </label><span class="createTime"></span>
+					</div>
+					<div>
+						<label>目标金额: </label><span class="cashMax"></span>
+					</div>
+					<div>
+						<label>当前金额: </label><span class="cashCurrent"></span>
+					</div>
+					<div>
+						<label>已参与人数: </label><span class="numJoin"></span>
+					</div>
+					<div>
+						<label>开始时间: </label><span class="startTime"></span>
+					</div>
+					<div>
+						<label>结束时间: </label><span class="endTime"></span>
+					</div>
+
+					<div style="clear:both;">
+						<label>拒绝原因: </label><span class="rejectReason reason" style="display:inline;"></span>
+					</div>
+
+					<div style="width:100%;clear:both;" class="mImg">
+						<img src="" alt="封面图片" class="pic1">
+						<img src="" alt="图片2" class="pic2">
+						<img src="" alt="图片3" class="pic3">
+						<img src="" alt="图片4" class="pic4">
+						<img src="" alt="图片5" class="pic5">
 					</div>
 					<span style="display:inline-block;clear:both;"></span>
 				</div>
@@ -156,6 +284,7 @@
 <script type="text/javascript" src="./../javascript/jquery-min.js"></script>
 <script type="text/javascript" src="./../javascript/MzTreeView10.js"></script>
 <script type="text/javascript" src="./../javascript/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="./../javascript/pq-localize-zh.js"></script> -->
 <script type="text/javascript" src="./../javascript/pqgrid.dev.js"></script>
 <script type="text/javascript" src="./../lhgdialog/lhgdialog.js"></script>
 <script language="JavaScript">
@@ -205,10 +334,19 @@
 	tree.nodes["100_130"] = "text:审批失败; icon: file; data:id=130; method:addGrid('100_130')";
 	// tree.nodes["1_200"] = "text:商户对公; icon: book; data:id=200; method:addGrid('1_200')";
 	// tree.nodes["1_300"] = "text:公益申请; icon: book; data:id=300; method:addGrid('1_300')";
-	tree.nodes["1_400"] = "text:云商宝申请; icon: book; data:id=400;";
+	tree.nodes["1_400"] = "text:商户云商宝申请; icon: book; data:id=400;";
 	tree.nodes["400_410"] = "text:未审核; icon: file; data:id=410; method:addGrid('400_410')";
 	tree.nodes["400_420"] = "text:审批成功; icon: file; data:id=420; method:addGrid('400_420')";
 	tree.nodes["400_430"] = "text:审批失败; icon: file; data:id=430; method:addGrid('400_430')";
+
+	tree.nodes["1_500"] = "text:用户云商宝申请; icon: book; data:id=500;";
+	tree.nodes["500_510"] = "text:未审核; icon: file; data:id=510; method:addGrid('500_510')";
+	tree.nodes["500_520"] = "text:审批成功; icon: file; data:id=520; method:addGrid('500_520')";
+	tree.nodes["500_530"] = "text:审批失败; icon: file; data:id=530; method:addGrid('500_530')";
+	tree.nodes["1_600"] = "text:公益申请; icon: book; data:id=600;";
+	tree.nodes["600_610"] = "text:未审核; icon: file; data:id=610; method:addGrid('600_610')";
+	tree.nodes["600_620"] = "text:审批成功; icon: file; data:id=620; method:addGrid('600_620')";
+	tree.nodes["600_630"] = "text:审批失败; icon: file; data:id=630; method:addGrid('600_630')";
 
 	//tree.setURL("Catalog.asp");
 	// 树缺省的链接target，默认值是 _self
@@ -222,6 +360,7 @@
 
 	// 树形菜单对应右侧网格属性
 	var defaultGridObj = {
+		type:'',
 		grid_title:'未审核',
 		list:{
 			pror_key:'listAllUnchecked', //listAllUnchecked:所有未审核 listAllFailed:所有审核失败	listAllSuccess:所有审核通过
@@ -285,6 +424,7 @@
 	};
 	var gridObj = {
 		'100_110':{
+			type:'merchant_certified',
 			detail:{
 				showStrArr:['mName','mType','mOrgName','businessScope','loginName','mLicencenum','auditStatus','curStatus','applyTime','provinceName','regionName','cityName','region','address','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
 			},
@@ -300,6 +440,7 @@
 			}
 		},
 		'100_120':{
+			type:'merchant_certified',
 			grid_title:'审核成功',
 			list:{
 				pror_key:'listAllSuccess'
@@ -312,6 +453,7 @@
 			}
 		},
 		'100_130':{
+			type:'merchant_certified',
 			grid_title:'审核失败',
 			list:{
 				pror_key:'listAllFailed'
@@ -325,7 +467,7 @@
 		},
 		'400_410':{
 			grid_title:'未审核',
-			type:'yunshangbao',
+			type:'merchant_cloud_treasure_apply',
 			list:{
 				pror_key:'listApply', //listApply:未审核、审核失败	listCreditMerchant:所有审核通过
 				arg:[{startIndex:0},{endIndex:20},{status:0}]	// [startIndex, endIndex]
@@ -352,7 +494,7 @@
 		},
 		'400_420':{
 			grid_title:'审批成功',
-			type:'yunshangbao',
+			type:'merchant_cloud_treasure_apply',
 			list:{
 				pror_key:'listCreditMerchant'
 			},
@@ -368,7 +510,7 @@
 		},
 		'400_430':{
 			grid_title:'审批失败',
-			type:'yunshangbao',
+			type:'merchant_cloud_treasure_apply',
 			list:{
 				pror_key:'listApply',
 				arg:[{startIndex:0},{endIndex:20},{status:2}]
@@ -382,10 +524,133 @@
 			urlObj:{
 				module_key:'creditmerchantapply',
 			}
+		},
+		'500_510':{
+			grid_title:'未审核',
+			type:'customer_cloud_treasure_apply',
+			list:{
+				pror_key:'listApply', //listApply:未审核、审核失败	listCreditMerchant:所有审核通过
+				arg:[{startIndex:0},{endIndex:20},{status:0}]	// [startIndex, endIndex]
+			},
+			detail:{
+				pror_key:'getUserApplyByLoginName',
+				showStrArr:['loginName','nickname','status','curStatus','auditTime','createTime','amountApply','merLoginName','merApplyMax','merAmountApply','applyMax','amountMax','amountUsed','picIndex'],
+				arg:['loginName','merLoginName']
+			},
+			audit:{
+				success:{
+					pror_key:'auditSuccess',
+					arg:['id', 'amountApply']
+				},
+				fail:{
+					pror_key:'auditFailed',
+					arg:['id', 'rejectReason']
+				}
+			},
+			colModel:[{},{},{},{},{ title: "申请时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'credituserapply',
+			}
+		},
+		'500_520':{
+			grid_title:'审批成功',
+			type:'customer_cloud_treasure_apply',
+			list:{
+				pror_key:'listApply',
+				arg:[{startIndex:0},{endIndex:20},{status:1}]
+			},
+			detail:{
+				pror_key:'getUserApplyByLoginName',
+				showStrArr:['loginName','nickname','status','curStatus','auditTime','createTime','amountApoly','merLoginName','merApplyMax','merAmountApply','applyMax','amountMax','amountUsed','isRelease','releaseTime','picIndex'],
+				arg:['loginName','merLoginName']
+			},
+			colModel:[{},{},{},{},{ title: "审批时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'credituserapply',
+			}
+		},
+		'500_530':{
+			grid_title:'审批失败',
+			type:'customer_cloud_treasure_apply',
+			list:{
+				pror_key:'listApply',
+				arg:[{startIndex:0},{endIndex:20},{status:2}]
+			},
+			detail:{
+				pror_key:'getUserApplyByLoginName',
+				showStrArr:['loginName','nickname','status','curStatus','auditTime','reason'],
+				arg:['loginName','merLoginName']
+			},
+			colModel:[{},{},{},{},{ title: "审批时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'credituserapply',
+			}
+		},
+		'600_610':{
+			grid_title:'未审核',
+			type:'public_apply',
+			list:{
+				pror_key:'listAllUnchecked',
+				arg:[{startIndex:0},{endIndex:20}]
+			},
+			detail:{
+				pror_key:'getDetail',
+				showStrArr:['loginName','desc','curStatus','startTime','endTime','createTime','pic1','pic2','pic3','pic4','pic5'],
+				arg:['id']
+			},
+			audit:{
+				success:{
+					pror_key:'auditSuccess',
+					arg:['id']
+				},
+				fail:{
+					pror_key:'auditFailed',
+					arg:['id', 'reason']
+				}
+			},
+			colModel:[{},{},{title:"标题",dataIndx:"title"},{},{ title: "创建时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'publicapply',
+			}
+		},
+		'600_620':{
+			grid_title:'审批成功',
+			type:'public_apply',
+			list:{
+				pror_key:'listAllSuccess',
+				arg:[{startIndex:0},{endIndex:20}]
+			},
+			detail:{
+				pror_key:'getDetail',
+				showStrArr:['title','numJoin','loginName','desc','cashMax','cashCurrent','pubStatus','createTime','startTime','endTime','pic1','pic2','pic3','pic4','pic5'],
+				arg:['id']
+			},
+			colModel:[{},{},{title:"标题",dataIndx:"title"},{title:"发布状态",dataIndx:"pubStatus"},{ title: "创建时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'publicapply',
+			}
+		},
+		'600_630':{
+			grid_title:'审批失败',
+			type:'public_apply',
+			list:{
+				pror_key:'listAllFailed',
+				arg:[{startIndex:0},{endIndex:20}]
+			},
+			detail:{
+				pror_key:'getDetail',
+				showStrArr:['loginName','desc','curStatus','createTime','startTime','endTime','pic1','pic2','pic3','pic4','pic5'],
+				arg:['id']
+			},
+			colModel:[{},{},{title:"标题",dataIndx:"title"},{},{ title: "创建时间 (月/日/年)", dataIndx: "createTime"}],
+			urlObj:{
+				module_key:'publicapply',
+			}
 		}
 	};
 	var curGridObj = '',
 		$grid = "";
+
     // 绑定到树形控件上，点击后 网格渲染 函数
     function addGrid(str){
     	if($grid){$grid.pqGrid("destroy")};
@@ -397,44 +662,77 @@
 	    	cellClick: clickFunc,
 	    	// cellSelect: selectFunc,
 	    	width:(right_con_width - 10) || 817,
-	    	height:(right_con_height - 30) ||542,
+	    	// height:(right_con_height - 50) ||542,
+	    	// flexHeight: true,
 	    	wrap: false,
             hwrap: false,
+            resizable: true,
+            sortable: false,
 	    	scrollModel: { autoFit: true },
 	        title: curGridObj.grid_title,
 	        selectionModel: { type: 'cell' },
-	        filterModel: { on: true, mode: "AND", header: true }
+	        filterModel: { on: true, mode: "AND", header: false }
 	    };
 	    
 	    // 网格-网格字段与属性
 	    obj.colModel = curGridObj.colModel
 
-	    // 数据排序方式
-	    obj.dataModel = {
-	        location: "local",
-	        sorting: "local",                                
-	        sortIndx: "id",
-	        sortDir: "up",
-	        dataType: "JSON",
-	        method: "GET",
-	        recIndx: "id"
-	        /*
-		        // data: grid_list_data,
-		        // location 数据获取方式	local表示本地，remote表示url请求	filter筛选功能只能在local状态下使用
-		        // url: 首级网格数据源,
-		        getData: function (dataJSON) {
-		        	// 首级网格数据源处理
-		            var data = dataJSON.data;
-		            return { curPage: dataJSON.curPage, totalRecords: dataJSON.totalRecords, data: data };
-		        }
-	        */
+
+	    // 显示方式，行数设定	
+	    // type(网格扩展):	local:依据rPP值固定行数显示	remote:高度自动扩展,此时总页码为NaN，翻页出错
+	    // rPP默认显示行的个数		rPPOptions行数选项
+	    // obj.pageModel = { type: 'local', rPP: 20, rPPOptions: [10, 20, 30, 40, 50, 100, 500, 1000]};
+
+	    // 依据容器高度设定rPP(显示行数)值，rPP值不在rPPOptions里面，会导致 页显示个数下拉框显示空白
+	    var rPP, rPP_max = Math.floor((right_con_height - 50) / 23) - 1, rPPOptions = [10, 20, 30, 40, 50, 100, 500, 1000];
+	    for(var i = 0; i < rPPOptions.length; i++){
+	    	if(rPPOptions[i] > rPP_max && i != 0){
+	    		rPP = rPPOptions[i - 1];
+	    		break;
+	    	}else if(rPPOptions[i] > rPP_max && i == 0){
+	    		rPP = rPPOptions[i];
+	    		break;
+	    	}
 	    };
-    	$grid = $("#grid_json").pqGrid(obj);
-    	$grid.pqGrid( "showLoading" );
+	    obj.pageModel = { type: 'remote', rPP: rPP || 30, rPPOptions: rPPOptions};
+	    obj.height = rPP*23 + 80;
+
 
 
     	// 要传递的参数
     	var list_get_data = objectHandle(curGridObj.urlObj.defaultData, curGridObj.list.arg);
+    	list_get_data = $.extend(true, list_get_data, {startIndex:0,endIndex:rPP});
+
+	    // 数据排序方式
+	    obj.dataModel = {
+	        location: "remote",
+	        // sorting: "local",                                
+	        // sortIndx: "id",
+	        // sortDir: "down",
+	        dataType: "JSON",
+	        method: "GET",
+	        // recIndx: "id",
+	        postData:defaultGridObj.urlObj.defaultData,
+	        	// data: list_get_data,
+		        // location 数据获取方式	local表示本地，remote表示url请求	filter筛选功能只能在local状态下使用
+		        // url: 首级网格数据源,
+	        url:curGridObj.urlObj.url_prefix + curGridObj.list.pror_key + '?' + parseParam(list_get_data),
+	        getData: function (dataJSON) {
+	        	if(dataJSON.is){
+		        	// 首级网格数据源处理
+		            var data = dataJSON.data;
+		            var data_len = data.length;
+		            for(var iList = 0; iList < data_len; iList++){
+		            	data[iList] = auditStatusAndTimeHandle(data[iList]);
+		            }
+		            return {totalRecords: dataJSON.size || data_len || 0, data: data };
+	        	}else{
+	        		return {totalRecords: 0, data: [] };
+	        	}
+	        }
+	    };
+    	$grid = $("#grid_json").pqGrid(obj);
+    	/*$grid.pqGrid( "showLoading" );
 
     	// 获取列表数据
     	$.ajax({
@@ -466,8 +764,20 @@
 		        $grid.pqGrid("refreshDataAndView");
 	        },
 			dataType: "json"
-		});
+		});*/
     };
+    var parseParam=function(param, key){
+		var paramStr="";
+		if(param instanceof String||param instanceof Number||param instanceof Boolean){
+			paramStr+="&"+key+"="+encodeURIComponent(param);
+		}else{
+			$.each(param,function(i){
+				var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+				paramStr+='&'+parseParam(this, k);
+			});
+		}
+		return paramStr.substr(1);
+	};
     // 强制转换成网格时间格式
     function dateFormat(str){
     	var t_arr = str ? str.toString().split('-') : [];
@@ -579,38 +889,17 @@
 		if(singleData.amountAll != null && singleData.amountAll != undefined){singleData.amountAll = moneyFormat(singleData.amountAll, 2);}
 		if(singleData.amountMax != null && singleData.amountMax != undefined){singleData.amountMax = moneyFormat(singleData.amountMax, 2);}
 		if(singleData.commission != null && singleData.commission != undefined){singleData.commission = (singleData.commission * 100) + "%";}
-		// if(singleData.status){
-		// 	switch(singleData.status){
-		// 		case 0:
-		// 			singleData.curStatus = "未审核";
-		// 			singleData.pq_cellcls = { "curStatus": "green" };
-		// 			break;
-		// 		case 1:
-		// 			singleData.curStatus = "审批成功";
-		// 			break;
-		// 		case 2:
-		// 			singleData.curStatus = "审批失败";
-		// 			break;
-		// 	}
-		// }
-		// if(singleData.auditStatus){
-		// 	switch(singleData.auditStatus){
-		// 		case 0:
-		// 			singleData.curStatus = "审批中";
-		// 			break;
-		// 		case 1:
-		// 			singleData.curStatus = "审批成功";
-		// 			break;
-		// 		case 2:
-		// 			singleData.curStatus = "审批失败";
-		// 			break;
-		// 		case 3:
-		// 			singleData.curStatus = "未审核";
-		// 			singleData.pq_cellcls = { "curStatus": "green" };
-		// 			break;
-		// 	}
-		// }
-    	if(curGridObj.type == 'yunshangbao'){
+		if(singleData.releaseTime != null && singleData.releaseTime != undefined){singleData.releaseTime = dateFormat(singleData.releaseTime);}
+		if(singleData.startTime != null && singleData.startTime != undefined){singleData.startTime = dateFormat(singleData.startTime);}
+		if(singleData.endTime != null && singleData.endTime != undefined){singleData.endTime = dateFormat(singleData.endTime);}
+		if(singleData.cashMax != null && singleData.cashMax != undefined){singleData.cashMax = moneyFormat(singleData.cashMax, 2);}
+		if(singleData.cashCurrent != null && singleData.cashCurrent != undefined){singleData.cashCurrent = moneyFormat(singleData.cashCurrent, 2);}
+		$.each(singleData,function(k,v){
+			if(k.indexOf('pic') > -1 && v){
+				imgBeforeLoad(v);
+			}
+		})
+    	if(curGridObj.type && curGridObj.type.indexOf('cloud_treasure')>-1){
     		switch(singleData.status){
         		case 0:
         			singleData.curStatus = "未审核";
@@ -623,7 +912,15 @@
         			singleData.curStatus = "审批失败";
         			break;
         	}
-		}else{
+        	switch(singleData.isRelease){
+				case 0:
+					singleData.isRelease = "未释放";
+					break;
+				case 1:
+					singleData.isRelease = "已释放";
+					break;
+			}
+		}else if(curGridObj.type && curGridObj.type == "merchant_certified"){
     		switch(singleData.auditStatus){
         		case 0:
         			singleData.curStatus = "审批中";
@@ -639,8 +936,36 @@
         			singleData.pq_cellcls = { "curStatus": "green" };
         			break;
         	}
+		}else if(curGridObj.type && curGridObj.type == "public_apply"){
+    		switch(singleData.status){
+        		case 0:
+        			singleData.curStatus = "审批中";
+        			break;
+        		case 1:
+        			singleData.curStatus = "审批成功";
+        			break;
+    			case 2:
+        			singleData.curStatus = "审批失败";
+        			break;
+        	}
 		}
+		if(curGridObj.type == 'public_apply' && curGridObj.grid_title == '审核成功'){
+			switch(singleData.status){
+        		case 1:
+        			singleData.pubStatus = "已发布";
+        			break;
+    			case 2:
+        			singleData.pubStatus = "已结束";
+        			break;
+        	}
+		}
+		
 		return singleData; 
+    }
+    // 图片预加载
+    function imgBeforeLoad(str){
+		var newImg = new Image();
+		newImg.src = str;
     }
 
     /*
@@ -673,10 +998,11 @@
 	        	$("#dialog").show();
 	        	$("#dialog .wait_load").show();
 	        	// 清除详细信息遗留内容
-	        	$("#dialog .detail_info > div > span").addClass('font_eee').html('未填写');
+	        	$("#dialog .detail_info").hide();
 	        	$("#dialog .detail_info > div").hide();
-	        	// 隐藏详细信息下的图片框
+	        	$("#dialog .detail_info > div > span").addClass('font_eee').html('');
 	        	$("#dialog .detail_info .mImg>img").hide();
+	        	// 隐藏详细信息下的图片框
 	        	// 隐藏审核按钮
 	        	$("#dialog .dialog_con .sub_div").hide();
 	        	// 判断是否需要显示审核按钮
@@ -689,6 +1015,8 @@
 				};
 	        },
 	        success: function (respone) {
+	        	// 发送请求成功后开始执行，data是请求成功后，返回的数据
+	        	$("#dialog .wait_load").hide();
 	        	if(!respone.is){
 	        		$("#dialog .dialog_con").removeClass("dialog_info");
 		        	$("#dialog").hide();
@@ -696,43 +1024,59 @@
 		        	dialog_tip({content:'查询该商户详细信息失败！'});
 	        		return;
 	        	}
-	        	// 发送请求成功后开始执行，data是请求成功后，返回的数据
-	        	$("#dialog .wait_load").hide();
         		// dialog对话框关闭按钮
         		$("#dialog .dialog_close").show();
-        		$("#dialog .dialog_title").html((respone.data.mName || respone.data.mOrgName || "审批") + "详情");
+        		$("#dialog .dialog_title").html((respone.data.mName || respone.data.mOrgName || respone.data.title || "审批") + "详情");
 
+        		$("#dialog .detail_info."+curGridObj.type).show();
         		respone.data = auditStatusAndTimeHandle(respone.data);
-        		// 显示数组范围内的字段上级Div
+        		// 显示数组内字段的上级Div
         		$.each(curGridObj.detail.showStrArr, function(i, showStrClassName) {
 				     // this;      //this指向当前元素
 				     // i;         //i表示Array当前下标
 				     // value;     //value表示Array当前元素
-				     $("#dialog .detail_info ." + showStrClassName).parent().show();
+				     $("#dialog .detail_info."+curGridObj.type+" ." + showStrClassName).parent().show();
 				});
         		$.each( respone.data, function(k, v){
-        			if(k.indexOf("pic") > -1 && $("#dialog .detail_info ." + k).length){
-        				// 详细信息中详情图插入
-        				$("#dialog .detail_info ." + k).attr("src",v).show();
+        			if(k.indexOf("pic") > -1 && v && $("#dialog .detail_info."+curGridObj.type+" ." + k).length){
+			     		// 详细信息中详情图插入
+				       	$("#dialog .detail_info."+curGridObj.type+" ." + k).attr("src",v).show();
         			}else if(k.indexOf("pic") < 0){
         				// 详细信息中非图片部分 内容赋值
-        				$("#dialog .detail_info ." + k).removeClass('font_eee').html(v).attr("title",v);
+        				switch(typeof(v)){
+        					case "string":
+        						$("#dialog .detail_info."+curGridObj.type+" ." + k).removeClass('font_eee').html(v || "未填写").attr("title",v);
+        						break;
+        					case "number":
+        						$("#dialog .detail_info."+curGridObj.type+" ." + k).removeClass('font_eee').html(v || "0").attr("title",v);
+        						break;
+        					default:
+        						$("#dialog .detail_info."+curGridObj.type+" ." + k).removeClass('font_eee').html(v).attr("title",v);
+        						break;
+        				}
         			}
 				});
-				if(curGridObj.audit && curGridObj.type == 'yunshangbao'){commission
-					$("#dialog .detail_info input#amountMax").show();
-					$("#dialog .detail_info input#amountAll").show();
-					$("#dialog .detail_info input#commission").show();
-					$("#dialog .detail_info .amountMax").hide();
-					$("#dialog .detail_info .amountAll").hide();
-					$("#dialog .detail_info .commission").hide();
-				}else if(!curGridObj.audit && curGridObj.type == 'yunshangbao'){
-					$("#dialog .detail_info input#amountMax").hide();
-					$("#dialog .detail_info input#amountAll").hide();
-					$("#dialog .detail_info input#commission").hide();
-					$("#dialog .detail_info .amountMax").show();
-					$("#dialog .detail_info .amountAll").show();
-					$("#dialog .detail_info .commission").show();
+				if(curGridObj.audit && curGridObj.type == 'merchant_cloud_treasure_apply'){
+					$("#dialog .detail_info."+curGridObj.type+" input#amountMax").show();
+					$("#dialog .detail_info."+curGridObj.type+" input#amountAll").show();
+					$("#dialog .detail_info."+curGridObj.type+" input#commission").show();
+					$("#dialog .detail_info."+curGridObj.type+" .amountMax").hide();
+					$("#dialog .detail_info."+curGridObj.type+" .amountAll").hide();
+					$("#dialog .detail_info."+curGridObj.type+" .commission").hide();
+				}else if(!curGridObj.audit && curGridObj.type == 'merchant_cloud_treasure_apply'){
+					$("#dialog .detail_info."+curGridObj.type+" input#amountMax").hide();
+					$("#dialog .detail_info."+curGridObj.type+" input#amountAll").hide();
+					$("#dialog .detail_info."+curGridObj.type+" input#commission").hide();
+					$("#dialog .detail_info."+curGridObj.type+" .amountMax").show();
+					$("#dialog .detail_info."+curGridObj.type+" .amountAll").show();
+					$("#dialog .detail_info."+curGridObj.type+" .commission").show();
+				}
+				if(curGridObj.audit && curGridObj.type == 'customer_cloud_treasure_apply'){
+					$("#dialog .detail_info."+curGridObj.type+" input#amountApply").show();
+					$("#dialog .detail_info."+curGridObj.type+" .amountApply").hide();
+				}else if(!curGridObj.audit && curGridObj.type == 'customer_cloud_treasure_apply'){
+					$("#dialog .detail_info."+curGridObj.type+" input#amountApply").hide();
+					$("#dialog .detail_info."+curGridObj.type+" .amountApply").show();
 				}
 	        	if(curGridObj.audit){
 	        		$("#dialog .dialog_con .sub_div").show();
@@ -860,29 +1204,47 @@
 	function audit_sub_func(event){
 		var dataObj = event.data;
 		if($(this).hasClass("audit_allow")){
-			if(curGridObj.type && curGridObj.type == 'yunshangbao'){
+			if(curGridObj.type && curGridObj.type == 'merchant_cloud_treasure_apply'){
 				var msg = "";
-				var amountMaxNum = parseFloat($("#amountMax").val(), 10);
-				var amountAllNum = parseFloat($("#amountAll").val(), 10);
-				var commissionNum = parseFloat($("#commission").val(), 10);
+				var amountMaxNum = parseFloat($("."+curGridObj.type+" #amountMax").val(), 10);
+				var amountAllNum = parseFloat($("."+curGridObj.type+" #amountAll").val(), 10);
+				var commissionNum = parseFloat($("."+curGridObj.type+" #commission").val(), 10);
 				if(isNaN(amountAllNum) || amountAllNum <= 0){
 					amountAllNum = 1000000.00;
 				}
 			    if(isNaN(amountMaxNum) || amountMaxNum < 0){
 					amountMaxNum = 1000;
 				}else if(amountMaxNum > amountAllNum){
-					msg="你的单人最高申请额度超出总额度限制,请调整单人最高申请额度！";
+					// msg="你的单人最高申请额度超出总额度限制,请调整单人最高申请额度！";
+					msg="额度填写超出限制,请填写正确额度！";
 				}
 				if(isNaN(commissionNum) || commissionNum <= 0){
 					commissionNum = 0.015;
 				}
 				if(msg){
 					dialog_tip({content:msg});
+					$("."+curGridObj.type+" #amountMax").css({'border':'1px solid red'})[0].focus();
 					return;
+				}else{
+					$("."+curGridObj.type+" #amountMax").css({'border':'1px solid #ccc'});
 				}
 				dataObj.amountMax = amountMaxNum;
 				dataObj.amountAll = amountAllNum;
 				dataObj.commission = commissionNum;
+			}else if(curGridObj.type && curGridObj.type == 'customer_cloud_treasure_apply'){
+				var msg = "";
+				var amountApplyNum = parseFloat($("."+curGridObj.type+" #amountApply").val(), 10);
+				if(isNaN(amountApplyNum) || amountApplyNum > amountApplyNum){
+					msg="额度填写超出限制,请填写正确额度！";
+				}
+				if(msg){
+					dialog_tip({content:msg});
+					$("."+curGridObj.type+" #amountApply").css({'border':'1px solid red'})[0].focus();
+					return;
+				}else{
+					$("."+curGridObj.type+" #amountApply").css({'border':'1px solid #ccc'});
+				}
+				dataObj.amountApply = amountApplyNum;
 			}
 			dataObj.auditStatus = dataObj.audit = 1;
 			$.dialog.confirm('是否通过该审核请求？', function(){
@@ -952,6 +1314,32 @@
 			cancel: true
 		}, obj || {}));
 	};
+
+	$(".dialog .detail_info > div > img").on("click", function(){
+		var newImg = new Image();
+		newImg.src = $(this).attr("src");
+		var imgSrc = $(this).attr("src"),
+			imgWidth = newImg.width,
+			imgHeight = newImg.height,
+			ratio = 0; 
+		if(imgWidth >= imgHeight && imgWidth > 1024){
+			ratio = Math.round((1024/imgWidth)*100)/100;
+			imgWidth = 1024;
+			imgHeight = Math.round(ratio*imgHeight);
+		}else if(imgHeight >= imgWidth && imgWidth > 1024){
+			ratio = Math.round((1024/imgHeight)*100)/100;
+			imgHeight = 1024;
+			imgWidth = Math.round(ratio*imgWidth);
+		}
+		$.dialog({
+		    id: 'a15',
+		    title: '照片原图',
+		    lock: true,
+		    content: '<img src="' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '" />',
+		    padding: 0
+		});
+	})
+
 	/*
 		对话框处理 End
 	*/

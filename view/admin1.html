@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<title>云支付-后台管理</title>
+	<script>
+		if(!localStorage.getItem('loginStatus') || localStorage.getItem('loginStatus') == 'no'){
+			localStorage.setItem('historyUrl', window.location.href);
+			window.location.href =  "login.html";
+		}else{
+			localStorage.setItem('historyUrl', '');
+		}
+	</script>
+	<link rel="stylesheet" href="./../css/jquery-ui.css" />
+	<link rel="stylesheet" href="./../css/pqgrid.min.css" />
+	<link rel="stylesheet" href="./../css/pqgrid.css" />
+	<link rel="stylesheet" href="./../css/admin1.css">
+</head>
+<body>
+	<div id="nav">
+		<div class="nav-wrapper">
+			<a href="admin.html" class="logo">
+				<img src="./../images/logo.png" alt="">
+			</a>
+			<div class="logout">
+				<label>欢迎<strong>大主宰</strong>归来</label><a id="logout" href="javascript:void(0)">退出</a>
+			</div>
+			
+		</div>
+	</div>
+	<div id="wrapper">
+		<div class="left_tree">
+			<div class="left_tree_wrapper">
+			</div>
+		</div>
+		<div class="right_con">
+			<div class="right_con_wrapper">
+				<div id="grid_md" style="margin:5px auto;"></div>
+				<div id="grid_json" style="margin:20px auto;display:inline-block;"></div>
+			</div>
+		</div>
+	</div>
+	<div class="dialog" id="dialog">
+		<div class="dialog-wrapper">
+			<div class="dialog_con business_info">
+				<div>
+					<h3 class="dialog_title">详情</h3>
+				</div>
+				<img src="./../images/X.png" alt="" class="dialog_close">
+				<div class="detail_info" ></div>
+				<div style="clear:both;"></div>
+				<div style="width:100%;clear:both;" class="mImg"></div>
+				<div class="sub_div">
+					<button class="audit_allow">通过</button><button class="audit_fail">拒绝</button>
+				</div>
+			</div>
+			<div class="wait_load">
+				<img src="./../images/load.gif" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="mask_layer"></div>
+</body>
+<script type="text/javascript" src="./../javascript/jquery-min.js"></script>
+<script type="text/javascript" src="./../javascript/MzTreeView10.js"></script>
+<script type="text/javascript" src="./../javascript/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./../javascript/pqgrid.dev.js"></script>
+<script type="text/javascript" src="./../lhgdialog/lhgdialog.js"></script>
+<script type="text/javascript" src="./../javascript/function.js"></script>
+<script type="text/javascript" src="./../javascript/index_config.js"></script>
+<script language="JavaScript">
+	
+	function getRootPath() {
+
+	    var curWwwPath = window.document.location.href;
+	    var pathName = window.document.location.pathname;
+	    var pos = curWwwPath.indexOf(pathName);
+	    var localhostPaht = curWwwPath.substring(0, pos);
+	    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+	    return (localhostPaht + projectName);
+	}
+	// 计算网格容器大小
+	var right_con_width = $(window).width() - $(".left_tree").outerWidth(true) -35;
+	var right_con_height = $(window).height() - $("#nav").outerHeight(true) - 20;
+	// 网格跟随浏览器视图调整
+	$(window).resize(function(){
+		right_con_width = $(window).width() - $(".left_tree").outerWidth(true) -35;
+		right_con_height = $(window).height() - $("#nav").outerHeight(true) - 20;
+		if($( "#grid_json" ).length){
+			$( "#grid_json" ).pqGrid("option",{"width":right_con_width - 10, "height": right_con_height - 30} );
+			$( "#grid_json" ).pqGrid( "refresh" );
+			
+		}
+
+	});
+	/*
+		树形控件模块 Start
+	*/
+	// 树形控件加载
+	var tree = new MzTreeView("tree");
+	// 树形icon加载
+	tree.icons["property"] = "exit.gif";
+	tree.icons["book"]  = "book.gif";
+	tree.icons["file"] = "file.gif";
+
+	tree.iconsExpand["book"] = "bookopen.gif";
+	// 树形icon目录定义
+	tree.setIconPath("../images/"); //可用相对路径
+
+	// 树形节点
+	tree.nodes["0_1"] = "text:管理目录; icon: property;";
+	tree.nodes["1_100"] = "text:商户认证; icon: book; data:id=100;";
+	tree.nodes["100_110"] = "text:未审核; icon: file; data:id=110; method:addGrid('100_110')";
+	tree.nodes["100_120"] = "text:审批成功; icon: file; data:id=120; method:addGrid('100_120')";
+	tree.nodes["100_130"] = "text:审批失败; icon: file; data:id=130; method:addGrid('100_130')";
+	// tree.nodes["1_200"] = "text:商户对公; icon: book; data:id=200; method:addGrid('1_200')";
+	// tree.nodes["1_300"] = "text:公益申请; icon: book; data:id=300; method:addGrid('1_300')";
+	tree.nodes["1_400"] = "text:商户云商宝申请; icon: book; data:id=400;";
+	tree.nodes["400_410"] = "text:未审核; icon: file; data:id=410; method:addGrid('400_410')";
+	tree.nodes["400_420"] = "text:审批成功; icon: file; data:id=420; method:addGrid('400_420')";
+	tree.nodes["400_430"] = "text:审批失败; icon: file; data:id=430; method:addGrid('400_430')";
+
+	tree.nodes["1_500"] = "text:用户云商宝申请; icon: book; data:id=500;";
+	tree.nodes["500_510"] = "text:未审核; icon: file; data:id=510; method:addGrid('500_510')";
+	tree.nodes["500_520"] = "text:审批成功; icon: file; data:id=520; method:addGrid('500_520')";
+	tree.nodes["500_530"] = "text:审批失败; icon: file; data:id=530; method:addGrid('500_530')";
+	tree.nodes["1_600"] = "text:公益申请; icon: book; data:id=600;";
+	tree.nodes["600_610"] = "text:未审核; icon: file; data:id=610; method:addGrid('600_610')";
+	tree.nodes["600_620"] = "text:审批成功; icon: file; data:id=620; method:addGrid('600_620')";
+	tree.nodes["600_630"] = "text:审批失败; icon: file; data:id=630; method:addGrid('600_630')";
+
+
+	//tree.setURL("Catalog.asp");
+	// 树缺省的链接target，默认值是 _self
+	// tree.setTarget("MzMain");
+	// 树形控件渲染
+	document.getElementsByClassName("left_tree_wrapper")[0].innerHTML = tree.toString();
+
+	/*
+		树形控件模块 End
+	*/
+
+	
+	var $grid = "";
+    // 绑定到树形控件上，点击后 网格渲染 函数
+    function addGrid(str){
+    	if($grid){$grid.pqGrid("destroy")};
+    	// 获取当前模块配置
+    	getCurrentConfig(str);
+
+    	// 显示方式，行数设定	
+	    // type(网格扩展):	local:依据rPP值固定行数显示	remote:高度自动扩展,此时总页码为NaN，翻页出错
+	    // rPP默认显示行的个数		rPPOptions行数选项
+	    // obj.pageModel = { type: 'local', rPP: 20, rPPOptions: [10, 20, 30, 40, 50, 100, 500, 1000]};
+
+	    // 依据容器高度设定rPP(显示行数)值，rPP值不在rPPOptions里面，会导致 页显示个数下拉框显示空白
+    	var rPP, rPP_max = Math.floor((right_con_height - 50) / 23) - 1, rPPOptions = [10, 20, 30, 40, 50, 100, 500, 1000];
+	    for(var i = 0; i < rPPOptions.length; i++){
+	    	if(rPPOptions[i] > rPP_max && i != 0){
+	    		rPP = rPPOptions[i - 1];
+	    		break;
+	    	}else if(rPPOptions[i] > rPP_max && i == 0){
+	    		rPP = rPPOptions[i];
+	    		break;
+	    	}
+	    };
+
+	    // 要传递的参数
+    	var list_get_data = objectHandle(CONFIG.Current_Grid_Config.urlObj.defaultData, CONFIG.Current_Grid_Config.list.arg);
+    	var firstQuestUrl = CONFIG.Current_Grid_Config.urlObj.url_prefix + CONFIG.Current_Grid_Config.list.pror_key + '?' + parseParam_obj2url(list_get_data);
+    	// 网格参数
+	    var obj = {
+	    	// 点击表格调用函数
+	    	cellClick: clickFunc,
+	    	// cellSelect: selectFunc,
+	    	width:(right_con_width - 10) || 817,
+	    	// 根据显示行数确定网格高度，力求不出现滚动条
+	    	height:rPP*23 + 80,
+	    	wrap: false,
+            hwrap: false,
+            resizable: true,
+            sortable: false,
+	    	scrollModel: { autoFit: true },
+	        title: CONFIG.Current_Grid_Config.grid_title,
+	        // 点击选中单元格  cell 单元格  row 行  col 列
+	        selectionModel: { type: 'cell' },
+	        // 是否显示筛选功能
+	        filterModel: { on: true, mode: "AND", header: false },
+	        // 网格-网格字段与属性
+	        colModel:CONFIG.Current_Grid_Config.colModel,
+	        // 分页处理
+	        pageModel: { type: 'remote', rPP: rPP || 30, rPPOptions: rPPOptions},
+	        dataModel: {
+	        	location: "remote",
+		        dataType: "JSON",
+		        method: "GET",
+		        // recIndx: "id",
+		        postData:CONFIG.Current_Grid_Config.urlObj.defaultData,
+			        // location 数据获取方式	local表示本地，remote表示url请求	filter筛选功能只能在local状态下使用
+			        // url: 首级网格数据源,
+		        url: firstQuestUrl,
+		        getData: function (dataJSON) {
+		        	if(dataJSON.is){
+			        	// 首级网格数据源处理
+			            var data = dataJSON.data;
+			            var data_len = data.length;
+			            for(var iList = 0; iList < data_len; iList++){
+			            	data[iList] = responeDataHanle(data[iList]);
+			            }
+			            return {totalRecords: dataJSON.size || data_len || 0, data: data };
+		        	}else{
+		        		return {totalRecords: 0, data: [] };
+		        	}
+		        }
+	        }
+	    };
+
+    	$grid = $("#grid_json").pqGrid(obj);
+    	/*$grid.pqGrid( "showLoading" );
+
+
+    	
+
+    	// 获取列表数据
+    	$.ajax({
+			url: CONFIG.Current_Grid_Config.urlObj.url_prefix + CONFIG.Current_Grid_Config.list.pror_key,
+			// url: './../json/' + CONFIG.Current_Grid_Config.urlObj.module_key + '_' + CONFIG.Current_Grid_Config.list.pror_key + '_list.json',
+			type: "GET",
+			data: list_get_data,
+			success: function (dataJSON) {
+	        	// 首级网格数据源处理
+	            var data = dataJSON.data;
+	            //expand the first row.
+	            // 数据审核状态延伸--中文显示
+	            for(var iList = 0; iList < data.length; iList++){
+	            	data[iList] = responeDataHanle(data[iList]);
+	            }
+
+	            // return { curPage: dataJSON.curPage, totalRecords: dataJSON.totalRecords, data: data };
+
+	            // 网格数据填入
+				$grid.pqGrid("option", "dataModel.data", data);
+	            
+				// 审核状态下拉框设置
+				// var column = $grid.pqGrid("getColumn", { dataIndx: "curStatus" });
+				// var filter = column.filter;
+				// filter.cache = null;
+				// filter.options = $grid.pqGrid("getData", { dataIndx: ["curStatus"] });
+				$grid.pqGrid( "hideLoading" );
+                // 网格渲染
+		        $grid.pqGrid("refreshDataAndView");
+	        },
+			dataType: "json"
+		});*/
+    };
+    /*
+		网格控件模块 Start
+	*/
+
+    // 网格点击处理 函数
+	function clickFunc(event,ui){
+		// 对话框显示
+		$(".mask_layer").show();
+    	$("#dialog").show();
+    	$("#dialog .wait_load").show();
+
+
+    	// 要传递的参数
+    	var detail_sub_data = objectHandle(CONFIG.Current_Grid_Config.urlObj.defaultData, CONFIG.Current_Grid_Config.detail.arg, ui);
+
+    	// 详细数据请求
+		$.ajax({
+	        type: 'GET',    // 请求的方式 GET(默认)或POST
+	        url: CONFIG.Current_Grid_Config.urlObj.url_prefix + CONFIG.Current_Grid_Config.detail.pror_key,
+	        // url: './../json/' + CONFIG.Current_Grid_Config.module_key + '_' + CONFIG.Current_Grid_Config.detail.pror_key + '_' + ui.rowData.curStatus + '_detail.json',
+	        dataType: 'json',  // 这是后台返回的数据类型 一般情况下都是一个json数据， 前端遍历一下就OK
+	        async: true, // 默认为true，异步请求（请求后不等待）；同步请求(请求后整个网站全部等待结果)，需设置为false,
+	        timeout: 1000, // 设置请求超时时间（毫秒）。此设置将覆盖全局设置
+	        data: detail_sub_data,
+	        beforeSend: function () {
+	        	// 在发送请求前就开始执行 （一般用来显示loading图）
+	        	$(".mask_layer").show();
+	        	$("#dialog").show();
+	        	$("#dialog .wait_load").show();
+	        	// 清除详细信息遗留内容
+	        	$("#dialog .detail_info > div > span").addClass('font_eee').html('未填写');
+	        	$("#dialog .detail_info > div").hide();
+	        	// 隐藏详细信息下的图片框
+	        	$("#dialog .detail_info .mImg>img").hide();
+	        	// 隐藏审核按钮
+	        	$("#dialog .dialog_con .sub_div").hide();
+	        	// 判断是否需要显示审核按钮
+	        	if(ui.rowData.auditStatus != 3){
+	        		// 已审核，不需要显示
+					$("#dialog .dialog_con").addClass("dialog_info");
+				}else{
+					// 未审核，显示
+					$("#dialog .dialog_con").removeClass("dialog_info");
+				};
+	        },
+	        success: function (respone) {
+	        	if(!respone.is){
+	        		$("#dialog .dialog_con").removeClass("dialog_info");
+		        	$("#dialog").hide();
+		        	$(".mask_layer").hide();
+		        	dialog_tip({content:'查询该商户详细信息失败！'});
+	        		return;
+	        	}
+	        	// 发送请求成功后开始执行，data是请求成功后，返回的数据
+	        	$("#dialog .wait_load").hide();
+        		// dialog对话框关闭按钮
+        		$("#dialog .dialog_close").show();
+        		$("#dialog .dialog_title").html((respone.data.mName || respone.data.mOrgName || respone.data.title || "审批") + "详情");
+
+        		respone.data = responeDataHanle(respone.data);
+        		detail_info_div_append(respone.data);
+
+	        	if(!!CONFIG.Current_Grid_Config.audit){
+	        		$("#dialog .dialog_con .sub_div").show();
+	        		// 点击获取的ui与请求到的详细信息
+		        	var detail_data = $.extend(true, {}, ui, respone.data);
+		        	// 进行审核按钮事件绑定
+		        	audit_btn_addEvent(detail_data);
+	        	}
+	        },
+	        complete: function () {
+	        	//当请求完成后开始执行，无论成功或是失败都会执行 （一般用来隐藏loading图）
+	        	$("#dialog .wait_load").hide();
+	        },
+	        error: function (xhr, textStatus, errorThrown) {
+	        	//  请求失败后就开始执行，请求超时后，在这里执行请求超时后要执行的函数
+				$("#dialog .dialog_con").removeClass("dialog_info");
+	        	$("#dialog").hide();
+	        	$(".mask_layer").hide();
+	        	dialog_tip({content:'抱歉，数据请求失败，请重新尝试！'});
+	        }
+		}).done(function () {
+		        // 这个函数是在ajax数据加载完之后，对数据进行的判断，在涉及到对ajax数据进行操作无效时，在这个函数里面写是可以起到效果的
+		});
+		return;
+	};
+    /*
+		网格控件模块 End
+	*/
+
+    
+    /*
+		对话框处理 Start
+	*/
+
+	
+	$("#logout").on("click",logout);
+    // 对话框关闭函数
+    function dialogClose(){
+    	$("#amountMax").val("");
+    	$("#amountAll").val("");
+    	// 对话框处理
+    	$("#dialog .dialog_close").hide();
+    	$("#dialog").hide();
+		$(".mask_layer").hide();
+		// 注销按钮事件
+		$("#dialog .audit_allow").off();
+		$("#dialog .audit_fail").off();
+    };
+    // 审核数据提交 函数
+    function audit_sub(audit_sub_data){
+    	var curAuditStatus = '';
+    	if(audit_sub_data.audit == 1){
+    		curAuditStatus = 'success';
+    	}else{
+    		curAuditStatus = 'fail';
+    	}
+    	var auditUrl = CONFIG.Current_Grid_Config.urlObj.url_prefix + CONFIG.Current_Grid_Config.audit[curAuditStatus].pror_key;
+    	// 要传递的参数
+    	var auditSubData = objectHandle(CONFIG.Current_Grid_Config.urlObj.defaultData, CONFIG.Current_Grid_Config.audit[curAuditStatus].arg, audit_sub_data);
+
+		$.ajax({
+	        type: 'GET',    // 请求的方式 GET(默认)或POST
+	        // url: './../json/list.json',   // 这是请求的连接地址
+	        url: auditUrl,
+	        dataType: 'json',  // 这是后台返回的数据类型 一般情况下都是一个json数据， 前端遍历一下就OK
+	        async: true, // 默认为true，异步请求（请求后不等待）；同步请求(请求后整个网站全部等待结果)，需设置为false,
+	        timeout: 1000, // 设置请求超时时间（毫秒）。此设置将覆盖全局设置
+	        // 审核时需要提交的申请额度、最大额度、拒绝原因等
+	        data: auditSubData,
+	        beforeSend: function () {
+	        	// 在发送请求前就开始执行 （一般用来显示loading图）
+	        },
+	        success: function (data) {
+	        	// 发送请求成功后开始执行，data是请求成功后，返回的数据
+	        	if(data.is == 1){
+		        	dialogClose();
+		        	if(audit_sub_data.audit == 1){
+		        		$grid.pqGrid( "updateRow",{ rowIndx: audit_sub_data.rowIndx, row: { 'auditStatus': "1", 'curStatus': '审批成功', 'pq_cellcls' : { "curStatus": "" } }});
+		        	}else{
+		        		$grid.pqGrid( "updateRow",{ rowIndx: audit_sub_data.rowIndx, row: { 'auditStatus': "2", 'curStatus': '审批失败', 'pq_cellcls' : { "curStatus": "" } }});
+		        	}
+	        	}else{
+	        		// 审核过程出错
+	        		dialog_tip({content:data.msg});
+	        	}
+	        },
+	        error: function (xhr, textStatus, errorThrown) {
+	        	//  请求失败后就开始执行，请求超时后，在这里执行请求超时后要执行的函数
+	        	dialog_tip({content:'抱歉，数据提交失败，请重新尝试 ！'});
+	        }
+		}).done(function () {
+		        // 这个函数是在ajax数据加载完之后，对数据进行的判断，在涉及到对ajax数据进行操作无效时，在这个函数里面写是可以起到效果的
+		});
+	}
+	// 审核按钮事件绑定 函数
+	function audit_btn_addEvent(data){
+		$("#dialog .audit_allow").on("click", data, audit_sub_func);
+        $("#dialog .audit_fail").on("click", data, audit_sub_func);
+	};
+	function audit_sub_func(event){
+		var dataObj = event.data;
+		if($(this).hasClass("audit_allow")){
+			if(CONFIG.Current_Grid_Config.type && CONFIG.Current_Grid_Config.type == 'merchant_cloud_treasure_apply'){
+				var msg = "";
+				var amountMaxNum = parseFloat($("#amountMax").val(), 10);
+				var amountAllNum = parseFloat($("#amountAll").val(), 10);
+				var commissionNum = parseFloat($("#commission").val(), 10);
+				if(isNaN(amountAllNum) || amountAllNum <= 0){
+					amountAllNum = 1000000.00;
+				}
+			    if(isNaN(amountMaxNum) || amountMaxNum < 0){
+					amountMaxNum = 1000;
+				}else if(amountMaxNum > amountAllNum){
+					// msg="你的单人最高申请额度超出总额度限制,请调整单人最高申请额度！";
+					msg="额度填写超出限制,请填写正确额度！";
+				}
+				if(isNaN(commissionNum) || commissionNum <= 0){
+					commissionNum = 0.015;
+				}
+				if(msg){
+					dialog_tip({content:msg});
+					$("#amountMax").css({'border':'1px solid red'})[0].focus();
+					return;
+				}else{
+					$("#amountMax").css({'border':'1px solid #ccc'});
+				}
+				dataObj.amountMax = amountMaxNum;
+				dataObj.amountAll = amountAllNum;
+				dataObj.commission = commissionNum;
+			}
+			if(CONFIG.Current_Grid_Config.type && CONFIG.Current_Grid_Config.type == 'customer_cloud_treasure_apply'){
+				var msg = "";
+				var amountApplyNum = parseFloat($("#amountApply").val(), 10);
+				if(isNaN(amountApplyNum) || amountApplyNum > amountApplyNum){
+					msg="额度填写超出限制,请填写正确额度！";
+				}
+				if(msg){
+					dialog_tip({content:msg});
+					$("#amountApply").css({'border':'1px solid red'})[0].focus();
+					return;
+				}else{
+					$("#amountApply").css({'border':'1px solid #ccc'});
+				}
+				dataObj.amountApply = amountApplyNum;
+			}
+			dataObj.auditStatus = dataObj.audit = 1;
+			$.dialog.confirm('是否通过该审核请求？', function(){
+	        	audit_sub(event.data);
+			}, function(){
+			    // $.dialog.tips('执行取消操作');
+			});
+		}else{
+			event.data.auditStatus = event.data.audit = 2;
+			$.dialog.prompt('请输入拒绝理由:',
+			    function(val){
+			    	if(val == '' || val == '拒绝理由'){
+			    		var msg = "";
+			    		msg += "请输入拒绝理由，以供用户处理\n\n";
+			    		dialog_tip({content:msg});
+						return false;
+			    	}else if(val != 'null'){
+			    		event.data.rejectReason = val;
+			    		event.data.reason = val;
+		    			audit_sub(event.data);
+		    			return;
+			    	}
+			    },
+			    '拒绝理由',
+			    {
+			    	title:'拒绝该审核',lock: true,
+				    background: '#000', /* 背景色 */
+				    opacityName: 0.5     /* 透明度 */
+				}
+			);
+		}
+	};
+	// 对话框关闭图标事件绑定
+    $("#dialog .dialog_close").on("click",dialogClose);
+
+
+	/*
+		对话框处理 End
+	*/
+</script>
+</html>

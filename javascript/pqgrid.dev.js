@@ -2788,6 +2788,20 @@
 			}
 		} else {
 			if (typeof DM.url == "string") {
+				/*
+					应项目要求添加的内容	强制获取url内的参数
+				*/
+				var res_interim = {};
+				if(DM.url.split("?").length > 1){
+					DM.url.split("?")[1].split("&").forEach(function(i){
+				        var j = i.split('=');
+				        res_interim[j[0]]=j[1];
+				    });
+				}
+			    DM.url = DM.url.split("?")[0];
+				/*
+					应项目要求添加的内容	强制获取url内的参数
+				*/
 				url = DM.url;
 				var sortQueryString = {}, filterQueryString = {}, pageQueryString = {};
 				if (DM.sorting == "remote") {
@@ -2802,6 +2816,14 @@
 					pageQueryString = {
 						pq_curpage: PM.curPage,
 						pq_rpp: PM.rPP
+						/*
+							应项目要求添加的内容	强制为分页提供定制参数
+						*/
+						,startIndex: PM.rPP * (PM.curPage - 1) +1
+						,endIndex: PM.rPP * PM.curPage
+						/*
+							应项目要求添加的内容	强制为分页提供定制参数
+						*/
 					}
 				}
 				var filterQS;
@@ -2824,7 +2846,7 @@
 				}
 				dataURL = $.extend({
 					pq_datatype: DM.dataType
-				}, filterQueryString, pageQueryString, sortQueryString, postData, postDataOnce)
+				}, res_interim, filterQueryString, pageQueryString, sortQueryString, postData, postDataOnce)
 			}
 		} if (!url) {
 			return
