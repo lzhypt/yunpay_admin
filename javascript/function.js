@@ -105,6 +105,11 @@ function dialog_tip(argObj, time){
 	    },
 	    close: function () {
 	        clearInterval(timer);
+	        if(dialog_api){
+	        	dialog_api.unlock();
+	        	dialog_api.lock();
+	        	// setTimeout(dialog_api.lock,300);
+	        }
 	    }
 	}, argObj || {}));
 }
@@ -140,7 +145,11 @@ $.dialog.prompt = function( content, yes, value, obj, parent )
 			ok: function(here){
 				return yes && yes.call(this, input.value, here);
 			},
-			cancel: true
+			cancel: true,
+			close: function(){
+				console.log('close');
+				setTimeout(dialog_lock,250);
+			}
 		}, obj || {}));
 	};
 // 图片预加载
@@ -319,4 +328,32 @@ function logout(){
        		return false;
       	}
 	})
+}
+// 关闭所有在列弹出框
+function dialog_close(id){
+	var list = $.dialog.list;
+	if(id){
+		list[id].close();
+	}else{
+		for( var i in list ){
+		    list[i].close();
+		}
+	}
+}
+// 在列弹出框锁屏
+function dialog_lock(id){
+	var list = $.dialog.list;
+	if(id){
+		list[id].lock();
+	}else{
+		var id = '', zIndex = 0;
+		for( var i in list ){
+		    if(list[i].config.zIndex > zIndex){
+		    	zIndex = list[i].config.zIndex;
+		    	id = i;
+		    }
+		}
+		list[id].lock();
+
+	}
 }

@@ -766,7 +766,7 @@ var Default_Config = {
 		'100_110':{
 			type:'merchant_certified',
 			detail:{
-				showStrArr:['mName','mType','mOrgName','businessScope','loginName','mLicenceNum','curStatus','applyTime','provinceName','cityName','regionName','regionNum','address','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
+				showStrArr:['mOrgName','businessScope','mName','mType','loginName','mLicenceNum','curStatus','applyTime','provinceName','cityName','regionName','regionNum','address','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
 			},
 			audit:{
 				success:{
@@ -786,7 +786,7 @@ var Default_Config = {
 				pror_key:'listAllSuccess'
 			},
 			detail:{
-				showStrArr:['mName','mType','mOrgName','businessScope','loginName','mLicenceNum','curStatus','auditTime','provinceName','cityName','regionName','regionNum','address','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
+				showStrArr:['mOrgName','businessScope','mName','mType','loginName','mLicenceNum','curStatus','auditTime','provinceName','cityName','regionName','regionNum','address','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
 			},
 			urlObj:{
 				module_key:'merchantapply',
@@ -799,7 +799,7 @@ var Default_Config = {
 				pror_key:'listAllFailed'
 			},
 			detail:{
-				showStrArr:['mName','mType','mOrgName','businessScope','loginName','mLicenceNum','curStatus','auditTime','provinceName','cityName','regionName','regionNum','address','rejectReason','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
+				showStrArr:['mOrgName','businessScope','mName','mType','loginName','mLicenceNum','curStatus','auditTime','provinceName','cityName','regionName','regionNum','address','rejectReason','picIndex','picIdHold','picIdFront','picIdBack','picMerLicence','picMerOther']
 			},
 			urlObj:{
 				module_key:'merchantapply',
