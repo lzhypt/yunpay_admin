@@ -293,6 +293,7 @@ var parseParam_obj2url=function(param, key){
 	}
 	return paramStr.substr(1);
 };
+// 注销函数
 function logout(){
 	$.ajax({
         type: 'POST',
