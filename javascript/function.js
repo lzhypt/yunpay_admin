@@ -145,11 +145,10 @@ $.dialog.prompt = function( content, yes, value, obj, parent )
 			ok: function(here){
 				return yes && yes.call(this, input.value, here);
 			},
-			cancel: true,
-			close: function(){
-				console.log('close');
-				setTimeout(dialog_lock,250);
-			}
+			cancel: true/*,
+			close: function(here){
+				return no && no.call(this, input.value, here);
+			}*/
 		}, obj || {}));
 	};
 // 图片预加载
@@ -227,7 +226,6 @@ function detail_info_div_append(singleData){
 		if(singleStrObj.showType == 'Image'){
 			if(curStrVal){
 				// 图片预加载
-				imgBeforeLoad(curStrVal);
 				var imgHtml = '<img src="'+curStrVal+'" alt="'+singleStrObj.desc+'" class="'+strKey+'">';
 				$('.dialog_con .mImg').append(imgHtml);
 			}
@@ -241,7 +239,20 @@ function detail_info_div_append(singleData){
 			}
 			html += '"><label title="' + singleStrObj.desc + '" for="' + strKey + '">' + singleStrObj.title + ':</label>';
 			if(isAudit && singleStrObj.includeInput){
-				html += '<input type="text" class="' + strKey + '" id="' + strKey + '" + name="' + strKey + '" placeholder="' + singleStrObj.placeholder + '" />';
+				html += '<input type="text" class="' + strKey + '" value="';
+				switch(singleStrObj.showType){
+					case 'Number':
+					case 'Rate':
+					case 'Money':
+					case 'Date':
+					case 'CardNo':
+					case 'String':
+						if(curStrVal){
+							html += curStrVal;
+						}
+						break;
+				}
+				html += '" id="' + strKey + '" + name="' + strKey + '" placeholder="' + singleStrObj.placeholder + '" />';
 			}else{
 				html += '<span class="' + strKey + '" style="display:inline;" title="'+curStrVal+'">';
 				switch(singleStrObj.showType){
@@ -330,10 +341,10 @@ function logout(){
 	})
 }
 // 关闭所有在列弹出框
-function dialog_close(id){
+function dialog_close(dialog_id){
 	var list = $.dialog.list;
-	if(id){
-		list[id].close();
+	if(dialog_id){
+		list[dialog_id].close();
 	}else{
 		for( var i in list ){
 		    list[i].close();
@@ -341,19 +352,30 @@ function dialog_close(id){
 	}
 }
 // 在列弹出框锁屏
-function dialog_lock(id){
+function dialog_lock(dialog_id){
 	var list = $.dialog.list;
-	if(id){
-		list[id].lock();
+	if(dialog_id){
+		list[dialog_id].lock();
 	}else{
-		var id = '', zIndex = 0;
+		var dialog_id = '', zIndex = 0;
 		for( var i in list ){
 		    if(list[i].config.zIndex > zIndex){
 		    	zIndex = list[i].config.zIndex;
-		    	id = i;
+		    	dialog_id = i;
 		    }
 		}
-		list[id].lock();
-
+		list[dialog_id].lock();
+	}
+}
+// 关闭其他在列弹出框，保留特定弹出框并开启锁屏
+function dialog_hold(dialog_id){
+	var list = $.dialog.list;
+	for( var i in list ){
+		if(i != dialog_id){
+	    	list[i].close();
+		}
+	}
+	if(dialog_id && list[dialog_id].config.lock){
+		list[dialog_id].lock();
 	}
 }

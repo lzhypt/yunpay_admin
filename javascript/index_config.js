@@ -721,7 +721,7 @@ var Default_Config = {
 	        	filter: { type: 'textbox', condition: 'regexp', listeners: ['keyup'] }
 			},
 	        { title: '商户名称', minWidth: 200, dataType: 'string', dataIndx: 'mName', editable:false,
-	        	filter: { type: 'textbox', condition: 'regexp', listeners: ['keyup'] }
+	        	filter: { type: 'textbox', condition: 'regexp', listeners: ['change'] }
 			},
 	        { title: '状态', minWidth: 100, dataType: 'string', align: 'center', dataIndx: 'curStatus', editable:false/*,
 	    		filter: { 

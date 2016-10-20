@@ -55,6 +55,7 @@ table.ui_border,table.ui_dialog{ width:auto;border-spacing:0;*border-collapse:co
 /*标题栏样式*/
 .ui_title_bar{ position:relative;height:100%;border-bottom:1px solid #317ebd; }
 .ui_title{ height:26px;line-height:26px;font-size:14px;font-weight:bold;color:#DDD;padding-left:7px;border-bottom:1px solid #6da6e1;
+background:#3280bf;
 background:linear-gradient(top,#46a0e1,#3280bf);
 background:-webkit-gradient(linear,0% 0%, 0% 100%,from(#46a0e1),to(#3280bf)); 
 background:-moz-linear-gradient(top,#46a0e1,#3280bf); 

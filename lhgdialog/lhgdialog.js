@@ -692,6 +692,27 @@ lhgdialog.fn = lhgdialog.prototype =
 		}
 		
 		that.unlock();
+
+		
+		/*新增锁屏处理，在存在上一层锁屏弹框时默认在取消本层弹框时显示上一层弹框 2016.10.20*/
+		var otherArr = [];
+		for(var i in list){
+			if(i != that.config.id && list[i].config.lock){
+				otherArr.push({id: list[i].config.id, zIndex: list[i].config.zIndex});
+			}
+		}
+		if(otherArr.length > 0){
+			var otherMaxzIndex = 0, list_id = '';
+			for(var j = 0; j < otherArr.length; j++){
+				if(otherArr[j].zIndex > otherMaxzIndex){
+					otherMaxzIndex = otherArr[j].zIndex;
+					list_id = otherArr[j].id;
+				}
+			}
+			list[list_id].lock();
+		}
+		/*新增锁屏处理，在存在上一层锁屏弹框时默认在取消本层弹框时显示上一层弹框 2016.10.20*/
+
 		
 		if( that._maxState )
 		{
